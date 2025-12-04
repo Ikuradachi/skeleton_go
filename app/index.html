@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Go API Skeleton - Modern REST API Template</title>
+    <link href="styles.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <span class="logo">🚀</span>
+                <span class="brand-text">Go API Skeleton</span>
+            </div>
+            <div class="nav-links">
+                <a href="#features">Fitur</a>
+                <a href="#architecture">Arsitektur</a>
+                <a href="#tech-stack">Tech Stack</a>
+                <a href="#getting-started">Mulai</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="badge">
+                    <span class="badge-icon">⚡</span>
+                    <span>Production Ready</span>
+                </div>
+                <h1 class="hero-title">
+                    Template Modern untuk<br>
+                    <span class="gradient-text">REST API dengan Golang</span>
+                </h1>
+                <p class="hero-description">
+                    Skeleton project yang powerful dan scalable untuk membangun REST API dengan Go.
+                    Dilengkapi dengan best practices, clean architecture, dan tools modern untuk development yang cepat.
+                </p>
+                <div class="hero-badges">
+                    <img alt="Go Version" src="https://img.shields.io/badge/Go-1.25+-00ADD8?style=for-the-badge&logo=go">
+                    <img alt="Echo" src="https://img.shields.io/badge/Echo-v4-00ADD8?style=for-the-badge">
+                    <img alt="License" src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge">
+                </div>
+                <div class="hero-buttons">
+                    <a class="btn btn-primary" href="https://github.com/Ikuradachi/skeleton" target="_blank">
+                        <span>📥</span>
+                        Download Template
+                    </a>
+                    <a class="btn btn-secondary" href="https://github.com/Ikuradachi/skeleton#readme" target="_blank">
+                        <span>📖</span>
+                        Dokumentasi
+                    </a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="code-window">
+                    <div class="window-header">
+                        <div class="window-dots">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                        </div>
+                        <span class="window-title">main.go</span>
+                    </div>
+                    <div class="code-content">
+                        <pre><code><span class="keyword">package</span> main
+
+<span class="keyword">import</span> (
+    <span class="string">"github.com/labstack/echo/v4"</span>
+    <span class="string">"skeleton/internal/api"</span>
+)
+
+<span class="keyword">func</span> <span class="function">main</span>() {
+    e := echo.<span class="function">New</span>()
+
+    <span class="comment">// Setup routes & middleware</span>
+    api.<span class="function">SetupRouter</span>(e)
+
+    <span class="comment">// Start server</span>
+    e.Logger.<span class="function">Fatal</span>(e.<span class="function">Start</span>(<span class="string">":8080"</span>))
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">✨ Fitur Unggulan</h2>
+                <p class="section-description">Semua yang Anda butuhkan untuk membangun REST API yang powerful</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🏗️</div>
+                    <h3 class="feature-title">Clean Architecture</h3>
+                    <p class="feature-description">
+                        Struktur project yang terorganisir dengan separation of concerns yang jelas.
+                        Handler, Service, dan Repository layer yang terpisah untuk maintainability maksimal.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3 class="feature-title">Echo Framework</h3>
+                    <p class="feature-description">
+                        Menggunakan Echo, framework Go yang high-performance dan minimalist.
+                        Dilengkapi dengan middleware untuk CORS, logging, dan recovery.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🗄️</div>
+                    <h3 class="feature-title">Database Ready</h3>
+                    <p class="feature-description">
+                        Support untuk PostgreSQL dan MySQL dengan sqlx.
+                        Konfigurasi database yang mudah dan connection pooling yang optimal.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📝</div>
+                    <h3 class="feature-title">YAML Configuration</h3>
+                    <p class="feature-description">
+                        Konfigurasi aplikasi menggunakan Viper dengan format YAML.
+                        Mudah dikelola dan mendukung multiple environments.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📦</div>
+                    <h3 class="feature-title">Modular Structure</h3>
+                    <p class="feature-description">
+                        Feature-based folder structure yang memudahkan scaling.
+                        Setiap feature memiliki entity, handler, service, dan repository sendiri.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3 class="feature-title">Middleware Ready</h3>
+                    <p class="feature-description">
+                        Pre-configured middleware untuk CORS, logging, dan panic recovery.
+                        Siap untuk ditambahkan authentication dan authorization.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Architecture Section -->
+    <section class="architecture" id="architecture">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">🏛️ Arsitektur</h2>
+                <p class="section-description">Clean Architecture dengan separation of concerns yang jelas</p>
+            </div>
+            <div class="architecture-content">
+                <div class="architecture-diagram">
+                    <div class="layer-card handler-layer">
+                        <div class="layer-header">
+                            <span class="layer-icon">🌐</span>
+                            <h4>Handler Layer</h4>
+                        </div>
+                        <p>Menangani HTTP request/response</p>
+                    </div>
+                    <div class="arrow-down">↓</div>
+                    <div class="layer-card service-layer">
+                        <div class="layer-header">
+                            <span class="layer-icon">⚙️</span>
+                            <h4>Service Layer</h4>
+                        </div>
+                        <p>Business logic dan validasi</p>
+                    </div>
+                    <div class="arrow-down">↓</div>
+                    <div class="layer-card repository-layer">
+                        <div class="layer-header">
+                            <span class="layer-icon">💾</span>
+                            <h4>Repository Layer</h4>
+                        </div>
+                        <p>Database operations</p>
+                    </div>
+                    <div class="arrow-down">↓</div>
+                    <div class="layer-card entity-layer">
+                        <div class="layer-header">
+                            <span class="layer-icon">📋</span>
+                            <h4>Entity Layer</h4>
+                        </div>
+                        <p>Data models dan structures</p>
+                    </div>
+                </div>
+                <div class="architecture-code">
+                    <div class="code-window">
+                        <div class="window-header">
+                            <div class="window-dots">
+                                <span class="dot red"></span>
+                                <span class="dot yellow"></span>
+                                <span class="dot green"></span>
+                            </div>
+                            <span class="window-title">Project Structure</span>
+                        </div>
+                        <div class="code-content">
+                            <pre><code>skeleton/
+├── cmd/api/              <span class="comment"># Entry point aplikasi</span>
+│   └── main.go          <span class="comment"># Main application</span>
+├── internal/            <span class="comment"># Private application code</span>
+│   ├── api/            <span class="comment"># Router & middleware</span>
+│   │   ├── router.go
+│   │   └── middleware.go
+│   ├── features/       <span class="comment"># Feature modules</span>
+│   │   └── auth/       <span class="comment"># Contoh: Auth feature</span>
+│   │       ├── entity.go
+│   │       ├── handler.go
+│   │       ├── service.go
+│   │       └── repository.go
+│   └── shared/         <span class="comment"># Shared utilities</span>
+│       ├── request.go
+│       └── response.go
+├── pkg/                <span class="comment"># Public reusable packages</span>
+│   ├── config/        <span class="comment"># Configuration management</span>
+│   ├── logger/        <span class="comment"># Logging utilities</span>
+│   ├── migration/     <span class="comment"># Database migrations</span>
+│   └── utils/         <span class="comment"># Helper functions</span>
+├── app/               <span class="comment"># Static files & frontend</span>
+├── docs/              <span class="comment"># Documentation</span>
+├── test/              <span class="comment"># Test files</span>
+├── go.mod
+└── go.sum</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack Section -->
+    <section class="tech-stack" id="tech-stack">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">🛠️ Technology Stack</h2>
+                <p class="section-description">Teknologi modern dan terpercaya untuk aplikasi production-ready</p>
+            </div>
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <div class="tech-icon">🔷</div>
+                    <h4>Go</h4>
+                    <p>Modern Go version</p>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-icon">⚡</div>
+                    <h4>Echo</h4>
+                    <p>High performance web framework</p>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-icon">🔧</div>
+                    <h4>sqlx</h4>
+                    <p>Database toolkit</p>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-icon">🐘</div>
+                    <h4>PostgreSQL</h4>
+                    <p>Primary database (optional)</p>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-icon">🐬</div>
+                    <h4>MySQL</h4>
+                    <p>Alternative database (optional)</p>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-icon">⚙️</div>
+                    <h4>Viper</h4>
+                    <p>Configuration management</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Getting Started Section -->
+    <section class="getting-started" id="getting-started">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">🚀 Mulai Sekarang</h2>
+                <p class="section-description">Langkah mudah untuk memulai project Anda</p>
+            </div>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h4>Clone Repository</h4>
+                    <div class="code-snippet">
+                        <code>git clone https://github.com/Ikuradachi/skeleton.git</code>
+                    </div>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h4>Install Dependencies</h4>
+                    <div class="code-snippet">
+                        <code>go mod download</code>
+                    </div>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h4>Configure Environment</h4>
+                    <div class="code-snippet">
+                        <code>cp config.example.yaml config.yaml</code>
+                    </div>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h4>Run Application</h4>
+                    <div class="code-snippet">
+                        <code>go run cmd/api/main.go</code>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="logo">🚀</span>
+                    <span class="brand-text">Go API Skeleton</span>
+                </div>
+                <p class="footer-text">Built with ❤️ using Go by <a href="https://github.com/Ikuradachi" style="color: var(--primary-color); text-decoration: none;" target="_blank">@Ikuradachi</a></p>
+                <p class="footer-cta">⭐ <a href="https://github.com/Ikuradachi/skeleton" style="color: var(--text-secondary); text-decoration: none;" target="_blank">Star this repository</a> if you find it helpful!</p>
+                <div style="margin-top: 1rem; display: flex; gap: 1rem; justify-content: center;">
+                    <a href="https://github.com/Ikuradachi/skeleton" style="color: var(--text-secondary); text-decoration: none; transition: color 0.3s;" target="_blank">GitHub</a>
+                    <span style="color: var(--text-muted);">•</span>
+                    <a href="https://github.com/Ikuradachi/skeleton/issues" style="color: var(--text-secondary); text-decoration: none; transition: color 0.3s;" target="_blank">Issues</a>
+                    <span style="color: var(--text-muted);">•</span>
+                    <a href="https://github.com/Ikuradachi" style="color: var(--text-secondary); text-decoration: none; transition: color 0.3s;" target="_blank">Author</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

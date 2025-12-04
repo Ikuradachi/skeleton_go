@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GoORMHelperCache">
+    <option name="schemaMapping">
+      <map>
+        <entry key="App">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/pkg/config/config.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Application">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/pkg/config/config.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Config">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/pkg/config/config.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="DB">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/pkg/config/config.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Database">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/pkg/config/config.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Response">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/internal/shared/response.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="ResponseJSON">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/internal/shared/response.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Server">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/pkg/config/config.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Service">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/pkg/config/config.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="serverConfigImpl">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/pkg/config/config.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="serviceConfigImpl">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/pkg/config/config.go" />
+            </set>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="scannedPathMapping">
+      <map>
+        <entry key="file://$PROJECT_DIR$/cmd/api/main.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1764814800585" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/api/middleware.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1764816040550" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/api/middleware/middleware.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1764814966395" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/api/router.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1764816040544" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/features/auth/entity.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1764816176575" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/features/auth/handler.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1764816163253" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/features/auth/repository.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1764816172393" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/features/auth/service.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1764816166863" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/shared/request.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1764816235302" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/shared/response.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1764823136089" />
+              <option name="schema">
+                <list>
+                  <option value="ResponseJSON" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/pkg/config/config.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1764819481497" />
+              <option name="schema">
+                <list>
+                  <option value="Server" />
+                  <option value="DB" />
+                  <option value="App" />
+                  <option value="Config" />
+                  <option value="serviceConfigImpl" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/pkg/utils/string.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1764816262756" />
+            </ScannedPath>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="tableStructMapping">
+      <map>
+        <entry key="app" value="App" />
+        <entry key="application" value="Application" />
+        <entry key="config" value="Config" />
+        <entry key="database" value="Database" />
+        <entry key="db" value="DB" />
+        <entry key="response" value="Response" />
+        <entry key="response_json" value="ResponseJSON" />
+        <entry key="server" value="Server" />
+        <entry key="server_config_impl" value="serverConfigImpl" />
+        <entry key="service" value="Service" />
+        <entry key="service_config_impl" value="serviceConfigImpl" />
+      </map>
+    </option>
+    <option name="lastTimeChecked" value="1764748898602" />
+  </component>
+</project>

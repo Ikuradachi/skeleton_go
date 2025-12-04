@@ -1,0 +1,13 @@
+server:
+  host: "localhost"
+  port: 38600
+
+db:
+#  driver: "pgx"
+#  dsn: "host=localhost user=postgres password=root dbname=skeleton port=5432 sslmode=disable TimeZone=Asia/Jakarta"
+  driver: "mysql"
+  dsn: "root:@tcp(localhost:3306)/skeleton?parseTime=true"
+
+app:
+  path: "app/"
+  file: "index.html"
