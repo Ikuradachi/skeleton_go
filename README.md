@@ -96,6 +96,8 @@ Setiap layer memiliki tanggung jawab yang jelas:
 
 **Built with ❤️ using Go**
 
+🌐 [Live Demo](https://ikuradachi.github.io/skeleton_go/) | 📦 [GitHub Repository](https://github.com/Ikuradachi/skeleton_go)
+
 ⭐ Star this repository if you find it helpful!
 
 </div>

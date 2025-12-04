@@ -159,6 +159,18 @@
             </GhostTextMetaData>
           </value>
         </entry>
+        <entry key="modified the @&lt;file_name&gt; and @&lt;file_name&gt; that need github refer to it&#10;&#10;https://ikuradachi.github.io/skeleton_go/&#10;https://github.com/Ikuradachi/skeleton_go">
+          <value>
+            <GhostTextMetaData>
+              <option name="count" value="1.0" />
+              <option name="timestamps">
+                <list>
+                  <option value="1764824269685" />
+                </list>
+              </option>
+            </GhostTextMetaData>
+          </value>
+        </entry>
         <entry key="on Init, do i need defer the db? or when i call on main?">
           <value>
             <GhostTextMetaData>
