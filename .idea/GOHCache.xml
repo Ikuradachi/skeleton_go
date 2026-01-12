@@ -10,13 +10,6 @@
             </set>
           </value>
         </entry>
-        <entry key="Application">
-          <value>
-            <set>
-              <option value="file://$PROJECT_DIR$/pkg/config/config.go" />
-            </set>
-          </value>
-        </entry>
         <entry key="Config">
           <value>
             <set>
@@ -31,20 +24,6 @@
             </set>
           </value>
         </entry>
-        <entry key="Database">
-          <value>
-            <set>
-              <option value="file://$PROJECT_DIR$/pkg/config/config.go" />
-            </set>
-          </value>
-        </entry>
-        <entry key="Response">
-          <value>
-            <set>
-              <option value="file://$PROJECT_DIR$/internal/shared/response.go" />
-            </set>
-          </value>
-        </entry>
         <entry key="ResponseJSON">
           <value>
             <set>
@@ -53,20 +32,6 @@
           </value>
         </entry>
         <entry key="Server">
-          <value>
-            <set>
-              <option value="file://$PROJECT_DIR$/pkg/config/config.go" />
-            </set>
-          </value>
-        </entry>
-        <entry key="Service">
-          <value>
-            <set>
-              <option value="file://$PROJECT_DIR$/pkg/config/config.go" />
-            </set>
-          </value>
-        </entry>
-        <entry key="serverConfigImpl">
           <value>
             <set>
               <option value="file://$PROJECT_DIR$/pkg/config/config.go" />
@@ -95,13 +60,6 @@
           <value>
             <ScannedPath>
               <option name="lastModified" value="1764816040550" />
-            </ScannedPath>
-          </value>
-        </entry>
-        <entry key="file://$PROJECT_DIR$/internal/api/middleware/middleware.go">
-          <value>
-            <ScannedPath>
-              <option name="lastModified" value="1764814966395" />
             </ScannedPath>
           </value>
         </entry>
@@ -187,18 +145,13 @@
     <option name="tableStructMapping">
       <map>
         <entry key="app" value="App" />
-        <entry key="application" value="Application" />
         <entry key="config" value="Config" />
-        <entry key="database" value="Database" />
         <entry key="db" value="DB" />
-        <entry key="response" value="Response" />
         <entry key="response_json" value="ResponseJSON" />
         <entry key="server" value="Server" />
-        <entry key="server_config_impl" value="serverConfigImpl" />
-        <entry key="service" value="Service" />
         <entry key="service_config_impl" value="serviceConfigImpl" />
       </map>
     </option>
-    <option name="lastTimeChecked" value="1764748898602" />
+    <option name="lastTimeChecked" value="1768193717172" />
   </component>
 </project>

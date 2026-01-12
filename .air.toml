@@ -5,8 +5,8 @@ tmp_dir = "tmp"
 [build]
 # 1. Use forward slashes for cross-platform compatibility
 # 2. On Windows, Go automatically adds .exe to the build, but Air looks for the base name
-#bin = "./tmp/main"
-bin = "./tmp/main.exe"
+#entrypoint = "./tmp/main"
+entrypoint = "./tmp/main.exe"
 
 # 3. Standardized build command using forward slashes
 #cmd = "go build -o ./tmp/main ./cmd/api/main.go"
