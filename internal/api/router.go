@@ -4,10 +4,11 @@ import (
 	"net/http"
 	"skeleton/pkg/config"
 
+	"github.com/jmoiron/sqlx"
 	"github.com/labstack/echo/v4"
 )
 
-func NewRouter(conf *config.Config) *echo.Echo {
+func NewRouter(conf *config.Config, db *sqlx.DB) *echo.Echo {
 	e := echo.New()
 
 	// Initialize middleware
@@ -21,6 +22,8 @@ func NewRouter(conf *config.Config) *echo.Echo {
 	api.GET("", func(c echo.Context) error {
 		return c.String(http.StatusOK, "Api is up and running 🚀")
 	})
+
+	_ = db // to avoid unused variable error
 
 	return e
 }

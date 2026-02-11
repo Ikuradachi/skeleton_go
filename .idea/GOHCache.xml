@@ -52,21 +52,28 @@
         <entry key="file://$PROJECT_DIR$/cmd/api/main.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1764814800585" />
+              <option name="lastModified" value="1770802159327" />
             </ScannedPath>
           </value>
         </entry>
         <entry key="file://$PROJECT_DIR$/internal/api/middleware.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1764816040550" />
+              <option name="lastModified" value="1770798839230" />
             </ScannedPath>
           </value>
         </entry>
         <entry key="file://$PROJECT_DIR$/internal/api/router.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1764816040544" />
+              <option name="lastModified" value="1770801867811" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/features/auth/dto.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1770798681795" />
             </ScannedPath>
           </value>
         </entry>
@@ -133,6 +140,13 @@
             </ScannedPath>
           </value>
         </entry>
+        <entry key="file://$PROJECT_DIR$/pkg/logger/logger.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1770798839142" />
+            </ScannedPath>
+          </value>
+        </entry>
         <entry key="file://$PROJECT_DIR$/pkg/utils/string.go">
           <value>
             <ScannedPath>
@@ -152,6 +166,6 @@
         <entry key="service_config_impl" value="serviceConfigImpl" />
       </map>
     </option>
-    <option name="lastTimeChecked" value="1768193717172" />
+    <option name="lastTimeChecked" value="1770778729960" />
   </component>
 </project>
