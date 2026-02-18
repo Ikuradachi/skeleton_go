@@ -10,7 +10,7 @@ require (
 )
 
 require (
-	filippo.io/edwards25519 v1.1.0 // indirect
+	filippo.io/edwards25519 v1.2.0 // indirect
 	github.com/Masterminds/squirrel v1.5.4 // indirect
 	github.com/duke-git/lancet/v2 v2.3.8 // indirect
 	github.com/dustin/go-humanize v1.0.1 // indirect
