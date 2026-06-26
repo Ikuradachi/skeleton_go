@@ -67,6 +67,8 @@ skeleton/
 ├── app/               # Static files & frontend
 ├── docs/              # Documentation
 ├── test/              # Test files
+├── Dockerfile         # Docker configuration
+├── docker-compose.yaml # Docker compose configuration
 ├── go.mod
 └── go.sum
 ```
@@ -90,7 +92,33 @@ Setiap layer memiliki tanggung jawab yang jelas:
 | **PostgreSQL** | Primary database (optional) |
 | **MySQL** | Alternative database (optional) |
 | **Viper** | Configuration management |
+| **Docker** | Containerization |
 
+## 🐳 Docker Deployment
+
+Aplikasi dapat dijalankan secara containerized menggunakan Docker dan Docker Compose.
+
+### Docker Compose (Direkomendasikan)
+Jalankan perintah berikut untuk membangun dan menjalankan service:
+```bash
+docker compose up -d --build
+```
+
+### Docker CLI
+Jika ingin membangun dan menjalankan container secara manual:
+
+1. Build docker image:
+   ```bash
+   docker build -t skeleton-go .
+   ```
+2. Jalankan container dengan melakukan mount konfigurasi:
+   ```bash
+   docker run -d \
+     -p 38600:38600 \
+     --name skeleton-go \
+     -v $(pwd)/pkg/config/config.yaml:/app/pkg/config/config.yaml \
+     skeleton-go
+   ```
 
 <div align="center">
 
@@ -101,3 +129,4 @@ Setiap layer memiliki tanggung jawab yang jelas:
 ⭐ Star this repository if you find it helpful!
 
 </div>
+
