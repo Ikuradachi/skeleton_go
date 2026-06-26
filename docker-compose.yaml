@@ -1,0 +1,23 @@
+services:
+  app:
+    # TODO: Replace with your registry/image name
+    image: ghcr.io/username/skeleton-app:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # TODO: Replace with your container name
+    container_name: skeleton-app
+    restart: always
+
+    # Standard port mapping
+    # TODO: Modify host port (left) and container port (right) if needed
+    # ports:
+    #   - "38600:38600"
+
+    # Host network mode (uncomment to use instead of port mapping, e.g. for host localhost DB access)
+    network_mode: "host"
+
+    volumes:
+      # Mount configuration file
+      # TODO: Update host path (left) if config file is elsewhere
+      - ./pkg/config/config.yaml:/app/pkg/config/config.yaml
