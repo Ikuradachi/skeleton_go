@@ -1,0 +1,12 @@
+.git
+.github
+.idea
+.agents
+.codex
+docs
+test
+tmp
+*.md
+build-errors.log
+pkg/config/config.yaml
+**/*_test.go

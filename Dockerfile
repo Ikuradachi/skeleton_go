@@ -1,62 +1,37 @@
-# ==========================================
-# BUILD STAGE
-# ==========================================
 FROM golang:1.26-alpine AS builder
 
-# Install build dependencies
-RUN apk add --no-cache ca-certificates git
+WORKDIR /src
 
-WORKDIR /app
-
-# Copy dependency files
 COPY go.mod go.sum ./
 RUN go mod download
 
-# Copy source code
-COPY . .
+COPY cmd ./cmd
+COPY internal ./internal
+COPY pkg ./pkg
 
-# Build statically linked binary
-# TODO: Update path to entrypoint if different (e.g. ./cmd/api)
-RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-w -s" -o main ./cmd/api
+RUN CGO_ENABLED=0 GOOS=linux go build \
+    -trimpath \
+    -ldflags="-s -w" \
+    -o /out/api \
+    ./cmd/api
 
-# ==========================================
-# RUNNER STAGE (Alpine)
-# ==========================================
 FROM alpine:3.21
 
-# Create non-root group and user
-RUN addgroup -S app && adduser -S -G app app
+RUN apk add --no-cache ca-certificates \
+    && addgroup -S app \
+    && adduser -S -G app app
 
 WORKDIR /app
 
-# Copy CA certificates for external HTTPS requests
-COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
+COPY --from=builder --chown=app:app /out/api ./api
+COPY --chown=app:app app ./app
 
-# Copy binary from builder
-COPY --from=builder /app/main .
-COPY --from=builder /app/app ./app
-
-# Create config directory and set ownership
-# TODO: Modify if config directory path changes
-RUN mkdir -p /app/pkg/config && \
-    chown -R app:app /app
+ENV SKELETON_SERVER_HOST=0.0.0.0
 
 USER app
-
-# TODO: Update exposed port to match your application config
 EXPOSE 38600
 
-CMD ["./main"]
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+    CMD wget -qO- http://127.0.0.1:38600/health/live >/dev/null || exit 1
 
-# ==========================================
-# OPTIONAL: SCRATCH RUNNER STAGE
-# ==========================================
-# To use scratch (absolute minimum size, no shell):
-#
-# FROM scratch
-# COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
-# COPY --from=builder /app/main /main
-# # NOTE: Volume mounts in scratch require binary to run as root,
-# # or numeric USER if files on host have matching permissions.
-# EXPOSE 38600
-# ENTRYPOINT ["/main"]
+ENTRYPOINT ["./api"]

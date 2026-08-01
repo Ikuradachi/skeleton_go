@@ -4,69 +4,97 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"net"
 	"net/http"
 	"os"
 	"os/signal"
+	"strconv"
+	"syscall"
+	"time"
+
 	"skeleton/internal/api"
 	"skeleton/pkg/config"
 	"skeleton/pkg/logger"
-	"time"
+)
 
-	"github.com/jmoiron/sqlx"
+const (
+	databaseConnectTimeout = 5 * time.Second
+	shutdownTimeout        = 10 * time.Second
 )
 
 func main() {
-	// Initialize logger
 	logger.Init()
 
-	cfg := config.NewServiceConfig()
+	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
+	defer stop()
 
-	// Load configuration
-	conf, err := cfg.Load()
+	if err := run(ctx); err != nil {
+		logger.Error("application stopped", "error", err)
+		os.Exit(1)
+	}
+}
+
+func run(ctx context.Context) error {
+	conf, err := config.Load()
 	if err != nil {
-		logger.Error("failed to load config", "error", err)
-		panic(err)
+		return err
 	}
 
-	// Initialize database connection
-	db, err := cfg.Init(conf)
+	dbCtx, cancelDB := context.WithTimeout(ctx, databaseConnectTimeout)
+	db, err := config.OpenDatabase(dbCtx, conf.DB)
+	cancelDB()
 	if err != nil {
-		logger.Error("failed to init database", "error", err)
-		panic(err)
+		return err
+	}
+	if db != nil {
+		defer func() {
+			if err := db.Close(); err != nil {
+				logger.Error("close database", "error", err)
+			}
+		}()
 	}
 
-	// Close database connection when the application exits
-	defer func(db *sqlx.DB) {
-		err := db.Close()
-		if err != nil {
-			logger.Error("failed to close database", "error", err)
-		}
-	}(db)
-
-	// Initialize API router
 	router := api.NewRouter(conf, db)
+	router.Server.ReadHeaderTimeout = 5 * time.Second
+	router.Server.ReadTimeout = 15 * time.Second
+	router.Server.WriteTimeout = 30 * time.Second
+	router.Server.IdleTimeout = 60 * time.Second
 
-	// Start server in a goroutine
+	address := net.JoinHostPort(conf.Server.Host, strconv.Itoa(conf.Server.Port))
+	var listenConfig net.ListenConfig
+	listener, err := listenConfig.Listen(ctx, "tcp", address)
+	if err != nil {
+		return fmt.Errorf("listen HTTP: %w", err)
+	}
+	defer func() { _ = listener.Close() }()
+	router.Listener = listener
+
+	serverErr := make(chan error, 1)
+	logger.Info("server listening", "address", listener.Addr().String(), "database", conf.DB.Enabled())
 	go func() {
-		logger.Info("starting server", "port", conf.Server.Port)
-		if err := router.Start(fmt.Sprintf(":%d", conf.Server.Port)); err != nil && !errors.Is(err, http.ErrServerClosed) {
-			logger.Error("shutting down the server", "error", err)
-		}
+		serverErr <- router.Start(address)
 	}()
 
-	// Wait for interrupt signal to gracefully shut down the server
-	quit := make(chan os.Signal, 1)
-	signal.Notify(quit, os.Interrupt)
-	<-quit
-
-	// Gracefully shutdown the server with a timeout
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	defer cancel()
-
-	logger.Info("shutting down server...")
-	if err := router.Shutdown(ctx); err != nil {
-		logger.Error("server forced to shutdown", "error", err)
+	select {
+	case err := <-serverErr:
+		if err != nil && !errors.Is(err, http.ErrServerClosed) {
+			return fmt.Errorf("serve HTTP: %w", err)
+		}
+		return nil
+	case <-ctx.Done():
 	}
 
-	logger.Info("server exited")
+	logger.Info("server shutting down")
+	shutdownCtx, cancelShutdown := context.WithTimeout(context.Background(), shutdownTimeout)
+	defer cancelShutdown()
+	if err := router.Shutdown(shutdownCtx); err != nil {
+		return fmt.Errorf("shut down HTTP server: %w", err)
+	}
+
+	if err := <-serverErr; err != nil && !errors.Is(err, http.ErrServerClosed) {
+		return fmt.Errorf("serve HTTP: %w", err)
+	}
+
+	logger.Info("server stopped")
+	return nil
 }

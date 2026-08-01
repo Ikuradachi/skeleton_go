@@ -1,8 +1,11 @@
-# ignore config files that may contain sensitive information
+# Local config may contain credentials.
 pkg/config/config.yaml
-tmp/*
+/tmp/
+build-errors.log
+.env
+.env.*
 
-.idea
+.idea/
 
 .agents/
 skills-lock.json

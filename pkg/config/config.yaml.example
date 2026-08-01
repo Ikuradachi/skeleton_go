@@ -1,13 +1,15 @@
+# Semua nilai berikut opsional; default ini sama dengan konfigurasi bawaan.
 server:
-  host: "localhost"
+  host: "0.0.0.0"
   port: 38600
 
+# Kosongkan keduanya untuk menjalankan API tanpa database.
 db:
-#  driver: "pgx"
-#  dsn: "host=localhost user=postgres password=root dbname=skeleton port=5432 sslmode=disable TimeZone=Asia/Jakarta"
-  driver: "mysql"
-  dsn: "root:@tcp(localhost:3306)/skeleton?parseTime=true"
+  driver: ""
+  dsn: ""
+  # driver: "mysql"
+  # dsn: "root:password@tcp(localhost:3306)/skeleton?parseTime=true"
 
 app:
-  path: "app/"
+  path: "app"
   file: "index.html"

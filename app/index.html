@@ -1,355 +1,244 @@
-<!DOCTYPE html>
-<html lang="id">
+<!doctype html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Go API Skeleton - Modern REST API Template</title>
-    <link href="styles.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com" rel="preconnect">
-    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A small, tested Go REST API skeleton that runs without external services.">
+    <meta name="color-scheme" content="dark">
+    <title>Go API Skeleton — Start small, ship solid</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="container">
-            <div class="nav-brand">
-                <span class="logo">🚀</span>
-                <span class="brand-text">Go API Skeleton</span>
-            </div>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <header class="site-header">
+        <nav class="shell nav" aria-label="Main navigation">
+            <a class="brand" href="#top" aria-label="Go API Skeleton, back to top">
+                <span class="brand-mark" aria-hidden="true">{ }</span>
+                <span>go/skeleton</span>
+            </a>
             <div class="nav-links">
-                <a href="#features">Fitur</a>
-                <a href="#architecture">Arsitektur</a>
-                <a href="#tech-stack">Tech Stack</a>
-                <a href="#getting-started">Mulai</a>
+                <a href="#features">Foundations</a>
+                <a href="#architecture">Architecture</a>
+                <a href="#endpoints">Endpoints</a>
+                <a href="#getting-started">Get started</a>
+                <a class="nav-source" href="https://github.com/Ikuradachi/skeleton_go" target="_blank" rel="noreferrer">Source ↗</a>
             </div>
-        </div>
-    </nav>
+        </nav>
+    </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="badge">
-                    <span class="badge-icon">⚡</span>
-                    <span>Production Ready</span>
-                </div>
-                <h1 class="hero-title">
-                    Template Modern untuk<br>
-                    <span class="gradient-text">REST API dengan Golang</span>
-                </h1>
-                <p class="hero-description">
-                    Skeleton project yang powerful dan scalable untuk membangun REST API dengan Go.
-                    Dilengkapi dengan best practices, clean architecture, dan tools modern untuk development yang cepat.
-                </p>
-                <div class="hero-badges">
-                    <img alt="Go Version" src="https://img.shields.io/badge/Go-1.25+-00ADD8?style=for-the-badge&logo=go">
-                    <img alt="Echo" src="https://img.shields.io/badge/Echo-v4-00ADD8?style=for-the-badge">
-                    <img alt="License" src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge">
-                </div>
-                <div class="hero-buttons">
-                    <a class="btn btn-primary" href="https://github.com/Ikuradachi/skeleton_go" target="_blank">
-                        <span>📥</span>
-                        Download Template
-                    </a>
-                    <a class="btn btn-secondary" href="https://github.com/Ikuradachi/skeleton_go#readme" target="_blank">
-                        <span>📖</span>
-                        Dokumentasi
-                    </a>
-                </div>
-            </div>
-            <div class="hero-visual">
-                <div class="code-window">
-                    <div class="window-header">
-                        <div class="window-dots">
-                            <span class="dot red"></span>
-                            <span class="dot yellow"></span>
-                            <span class="dot green"></span>
-                        </div>
-                        <span class="window-title">main.go</span>
+    <main id="main-content" tabindex="-1">
+        <section class="hero" id="top" aria-labelledby="hero-title">
+            <div class="shell hero-grid">
+                <div class="hero-copy">
+                    <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> Go 1.26 · Echo 4 · MySQL optional</p>
+                    <h1 id="hero-title">Start small.<br><span>Ship solid.</span></h1>
+                    <p class="hero-lede">Clone it and run it. Database support stays off until configured. Health checks, structured logs, HTTP limits, and clean shutdown are already wired.</p>
+                    <div class="hero-actions">
+                        <a class="button button-primary" href="#getting-started">Run it locally</a>
+                        <a class="button button-secondary" href="#architecture">See architecture</a>
                     </div>
-                    <div class="code-content">
-                        <pre><code><span class="keyword">package</span> main
+                    <dl class="hero-facts">
+                        <div>
+                            <dt>0</dt>
+                            <dd>required services</dd>
+                        </div>
+                        <div>
+                            <dt>2</dt>
+                            <dd>health checks</dd>
+                        </div>
+                        <div>
+                            <dt>2 MiB</dt>
+                            <dd>body limit</dd>
+                        </div>
+                    </dl>
+                </div>
 
-<span class="keyword">import</span> (
-    <span class="string">"github.com/labstack/echo/v4"</span>
-    <span class="string">"skeleton/internal/api"</span>
-)
-
-<span class="keyword">func</span> <span class="function">main</span>() {
-    e := echo.<span class="function">New</span>()
-
-    <span class="comment">// Setup routes & middleware</span>
-    api.<span class="function">SetupRouter</span>(e)
-
-    <span class="comment">// Start server</span>
-    e.Logger.<span class="function">Fatal</span>(e.<span class="function">Start</span>(<span class="string">":8080"</span>))
+                <div class="terminal" aria-label="Example API session">
+                    <div class="terminal-bar">
+                        <span class="terminal-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                        <span>~/skeleton_go</span>
+                    </div>
+                    <div class="terminal-body">
+                        <p><span class="prompt">$</span> go run ./cmd/api</p>
+                        <p class="log-line"><span>INFO</span> server listening</p>
+                        <p class="log-detail">address=0.0.0.0:38600 database=false</p>
+                        <p class="terminal-space"><span class="prompt">$</span> curl localhost:38600/health/ready</p>
+                        <pre><code>{
+  "status": "ok",
+  "checks": { "database": "disabled" }
 }</code></pre>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Features Section -->
-    <section class="features" id="features">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">✨ Fitur Unggulan</h2>
-                <p class="section-description">Semua yang Anda butuhkan untuk membangun REST API yang powerful</p>
-            </div>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">🏗️</div>
-                    <h3 class="feature-title">Clean Architecture</h3>
-                    <p class="feature-description">
-                        Struktur project yang terorganisir dengan separation of concerns yang jelas.
-                        Handler, Service, dan Repository layer yang terpisah untuk maintainability maksimal.
-                    </p>
+        <section class="section" id="features" aria-labelledby="features-title">
+            <div class="shell">
+                <div class="section-heading">
+                    <p class="section-index">01 / FOUNDATIONS</p>
+                    <h2 id="features-title">Small core.<br>Defaults you can test.</h2>
+                    <p>Defaults cover the common path. Add complexity when a feature needs it.</p>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">⚡</div>
-                    <h3 class="feature-title">Echo Framework</h3>
-                    <p class="feature-description">
-                        Menggunakan Echo, framework Go yang high-performance dan minimalist.
-                        Dilengkapi dengan middleware untuk CORS, logging, dan recovery.
-                    </p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🗄️</div>
-                    <h3 class="feature-title">Database Ready</h3>
-                    <p class="feature-description">
-                        Support untuk PostgreSQL dan MySQL dengan sqlx.
-                        Konfigurasi database yang mudah dan connection pooling yang optimal.
-                    </p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">📝</div>
-                    <h3 class="feature-title">YAML Configuration</h3>
-                    <p class="feature-description">
-                        Konfigurasi aplikasi menggunakan Viper dengan format YAML.
-                        Mudah dikelola dan mendukung multiple environments.
-                    </p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">📦</div>
-                    <h3 class="feature-title">Modular Structure</h3>
-                    <p class="feature-description">
-                        Feature-based folder structure yang memudahkan scaling.
-                        Setiap feature memiliki entity, handler, service, dan repository sendiri.
-                    </p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🛡️</div>
-                    <h3 class="feature-title">Middleware Ready</h3>
-                    <p class="feature-description">
-                        Pre-configured middleware untuk CORS, logging, dan panic recovery.
-                        Siap untuk ditambahkan authentication dan authorization.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Architecture Section -->
-    <section class="architecture" id="architecture">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">🏛️ Arsitektur</h2>
-                <p class="section-description">Clean Architecture dengan separation of concerns yang jelas</p>
-            </div>
-            <div class="architecture-content">
-                <div class="architecture-diagram">
-                    <div class="layer-card handler-layer">
-                        <div class="layer-header">
-                            <span class="layer-icon">🌐</span>
-                            <h4>Handler Layer</h4>
-                        </div>
-                        <p>Menangani HTTP request/response</p>
-                    </div>
-                    <div class="arrow-down">↓</div>
-                    <div class="layer-card service-layer">
-                        <div class="layer-header">
-                            <span class="layer-icon">⚙️</span>
-                            <h4>Service Layer</h4>
-                        </div>
-                        <p>Business logic dan validasi</p>
-                    </div>
-                    <div class="arrow-down">↓</div>
-                    <div class="layer-card repository-layer">
-                        <div class="layer-header">
-                            <span class="layer-icon">💾</span>
-                            <h4>Repository Layer</h4>
-                        </div>
-                        <p>Database operations</p>
-                    </div>
-                    <div class="arrow-down">↓</div>
-                    <div class="layer-card entity-layer">
-                        <div class="layer-header">
-                            <span class="layer-icon">📋</span>
-                            <h4>Entity Layer</h4>
-                        </div>
-                        <p>Data models dan structures</p>
-                    </div>
-                </div>
-                <div class="architecture-code">
-                    <div class="code-window">
-                        <div class="window-header">
-                            <div class="window-dots">
-                                <span class="dot red"></span>
-                                <span class="dot yellow"></span>
-                                <span class="dot green"></span>
-                            </div>
-                            <span class="window-title">Project Structure</span>
-                        </div>
-                        <div class="code-content">
-                            <pre><code>skeleton/
-├── cmd/api/              <span class="comment"># Entry point aplikasi</span>
-│   └── main.go          <span class="comment"># Main application</span>
-├── internal/            <span class="comment"># Private application code</span>
-│   ├── api/            <span class="comment"># Router & middleware</span>
-│   │   ├── router.go
-│   │   └── middleware.go
-│   ├── features/       <span class="comment"># Feature modules</span>
-│   │   └── auth/       <span class="comment"># Contoh: Auth feature</span>
-│   │       ├── entity.go
-│   │       ├── handler.go
-│   │       ├── service.go
-│   │       └── repository.go
-│   └── shared/         <span class="comment"># Shared utilities</span>
-│       ├── request.go
-│       └── response.go
-├── pkg/                <span class="comment"># Public reusable packages</span>
-│   ├── config/        <span class="comment"># Configuration management</span>
-│   ├── logger/        <span class="comment"># Logging utilities</span>
-│   ├── migration/     <span class="comment"># Database migrations</span>
-│   └── utils/         <span class="comment"># Helper functions</span>
-├── app/               <span class="comment"># Static files & frontend</span>
-├── docs/              <span class="comment"># Documentation</span>
-├── test/              <span class="comment"># Test files</span>
-├── Dockerfile         <span class="comment"># Docker configuration</span>
-├── docker-compose.yaml <span class="comment"># Docker compose configuration</span>
-├── go.mod
-└── go.sum</code></pre>
-                        </div>
-                    </div>
+                <div class="feature-grid">
+                    <article class="feature-card">
+                        <p class="feature-number" aria-hidden="true">01</p>
+                        <h3>Boot with no setup</h3>
+                        <p>Config files and databases are optional. Built-in defaults run the API and local landing page.</p>
+                    </article>
+                    <article class="feature-card">
+                        <p class="feature-number" aria-hidden="true">02</p>
+                        <h3>Clean lifecycle</h3>
+                        <p><code>SIGINT</code> and <code>SIGTERM</code> trigger graceful shutdown. A startup failure stops the process immediately.</p>
+                    </article>
+                    <article class="feature-card">
+                        <p class="feature-number" aria-hidden="true">03</p>
+                        <h3>Operations in view</h3>
+                        <p>Liveness, readiness, request IDs, latency, status, and response size are logged from the first request.</p>
+                    </article>
+                    <article class="feature-card">
+                        <p class="feature-number" aria-hidden="true">04</p>
+                        <h3>Bounded by default</h3>
+                        <p>Server timeouts, panic recovery, a 2 MiB body limit, read-only CORS, CSP, and security headers are active.</p>
+                    </article>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Tech Stack Section -->
-    <section class="tech-stack" id="tech-stack">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">🛠️ Technology Stack</h2>
-                <p class="section-description">Teknologi modern dan terpercaya untuk aplikasi production-ready</p>
-            </div>
-            <div class="tech-grid">
-                <div class="tech-card">
-                    <div class="tech-icon">🔷</div>
-                    <h4>Go</h4>
-                    <p>Modern Go version</p>
+        <section class="section section-tinted" id="architecture" aria-labelledby="architecture-title">
+            <div class="shell">
+                <div class="section-heading">
+                    <p class="section-index">02 / STRUCTURE</p>
+                    <h2 id="architecture-title">See the request path at a glance.</h2>
+                    <p>The composition root lives in <code>cmd</code>. HTTP transport and private feature code stay under <code>internal</code>; small reusable infrastructure packages live in <code>pkg</code>.</p>
                 </div>
-                <div class="tech-card">
-                    <div class="tech-icon">⚡</div>
-                    <h4>Echo</h4>
-                    <p>High performance web framework</p>
-                </div>
-                <div class="tech-card">
-                    <div class="tech-icon">🔧</div>
-                    <h4>sqlx</h4>
-                    <p>Database toolkit</p>
-                </div>
-                <div class="tech-card">
-                    <div class="tech-icon">🐘</div>
-                    <h4>PostgreSQL</h4>
-                    <p>Primary database (optional)</p>
-                </div>
-                <div class="tech-card">
-                    <div class="tech-icon">🐬</div>
-                    <h4>MySQL</h4>
-                    <p>Alternative database (optional)</p>
-                </div>
-                <div class="tech-card">
-                    <div class="tech-icon">⚙️</div>
-                    <h4>Viper</h4>
-                    <p>Configuration management</p>
-                </div>
-                <div class="tech-card">
-                    <div class="tech-icon">🐳</div>
-                    <h4>Docker</h4>
-                    <p>Containerization</p>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Getting Started Section -->
-    <section class="getting-started" id="getting-started">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">🚀 Mulai Sekarang</h2>
-                <p class="section-description">Langkah mudah untuk memulai project Anda</p>
-            </div>
-            <div class="steps-grid">
-                <div class="step-card">
-                    <div class="step-number">1</div>
-                    <h4>Clone Repository</h4>
-                    <div class="code-snippet">
-                        <code>git clone https://github.com/Ikuradachi/skeleton_go.git</code>
-                    </div>
-                </div>
-                <div class="step-card">
-                    <div class="step-number">2</div>
-                    <h4>Install Dependencies</h4>
-                    <div class="code-snippet">
-                        <code>go mod download</code>
-                    </div>
-                </div>
-                <div class="step-card">
-                    <div class="step-number">3</div>
-                    <h4>Configure Environment</h4>
-                    <div class="code-snippet">
-                        <code>cp config.example.yaml config.yaml</code>
-                    </div>
-                </div>
-                <div class="step-card">
-                    <div class="step-number">4</div>
-                    <h4>Run Application</h4>
-                    <div class="code-snippet">
-                        <code>go run cmd/api/main.go</code>
-                    </div>
-                    <p style="margin-top: 0.5rem; font-size: 0.8rem; color: var(--text-muted); text-align: center;">Atau menggunakan Docker:</p>
-                    <div class="code-snippet" style="margin-top: 0.5rem;">
-                        <code>docker compose up -d</code>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+                <div class="architecture-grid">
+                    <figure class="tree-panel">
+                        <figcaption>project tree</figcaption>
+                        <pre><code><span>skeleton_go/</span>
+├── cmd/api/                 <em># composition root</em>
+│   └── main.go
+├── internal/
+│   ├── api/                 <em># HTTP transport</em>
+│   └── features/health/     <em># vertical slice</em>
+├── pkg/
+│   ├── config/              <em># config + DB</em>
+│   └── logger/              <em># structured logs</em>
+├── app/                     <em># static front door</em>
+├── Dockerfile
+└── docker-compose.yaml</code></pre>
+                    </figure>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <span class="logo">🚀</span>
-                    <span class="brand-text">Go API Skeleton</span>
-                </div>
-                <p class="footer-text">Built with ❤️ using Go by <a href="https://github.com/Ikuradachi" style="color: var(--primary-color); text-decoration: none;" target="_blank">@Ikuradachi</a></p>
-                <p class="footer-cta">⭐ <a href="https://github.com/Ikuradachi/skeleton_go" style="color: var(--text-secondary); text-decoration: none;" target="_blank">Star this repository</a> if you find it helpful!</p>
-                <div style="margin-top: 1rem; display: flex; gap: 1rem; justify-content: center;">
-                    <a href="https://github.com/Ikuradachi/skeleton_go" style="color: var(--text-secondary); text-decoration: none; transition: color 0.3s;" target="_blank">GitHub</a>
-                    <span style="color: var(--text-muted);">•</span>
-                    <a href="https://github.com/Ikuradachi/skeleton_go/issues" style="color: var(--text-secondary); text-decoration: none; transition: color 0.3s;" target="_blank">Issues</a>
-                    <span style="color: var(--text-muted);">•</span>
-                    <a href="https://github.com/Ikuradachi" style="color: var(--text-secondary); text-decoration: none; transition: color 0.3s;" target="_blank">Author</a>
+                    <div class="request-flow">
+                        <h3>Request path</h3>
+                        <ol>
+                            <li>
+                                <span>01</span>
+                                <div><strong>Middleware</strong><p>Request ID, limits, security, logging, recovery.</p></div>
+                            </li>
+                            <li>
+                                <span>02</span>
+                                <div><strong>Router</strong><p>Maps HTTP intent to a feature handler.</p></div>
+                            </li>
+                            <li>
+                                <span>03</span>
+                                <div><strong>Feature</strong><p>Owns the smallest contract and dependency set it needs.</p></div>
+                            </li>
+                            <li>
+                                <span>04</span>
+                                <div><strong>Response</strong><p>Returns consistent JSON or static assets from <code>app</code>.</p></div>
+                            </li>
+                        </ol>
+                    </div>
                 </div>
             </div>
+        </section>
+
+        <section class="section" id="endpoints" aria-labelledby="endpoints-title">
+            <div class="shell">
+                <div class="section-heading">
+                    <p class="section-index">03 / CONTRACT</p>
+                    <h2 id="endpoints-title">Three endpoints. Each has a job.</h2>
+                    <p>Separate probes keep live instances out of rotation until they are ready.</p>
+                </div>
+
+                <div class="endpoint-table-wrap">
+                    <table class="endpoint-table">
+                        <thead>
+                            <tr><th scope="col">Method</th><th scope="col">Path</th><th scope="col">Purpose</th><th scope="col">Success</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><span class="method">GET</span></td><td><code>/api</code></td><td>API identity and status</td><td><code>200</code></td></tr>
+                            <tr><td><span class="method">GET</span></td><td><code>/health/live</code></td><td>Process is running</td><td><code>200</code></td></tr>
+                            <tr><td><span class="method">GET</span></td><td><code>/health/ready</code></td><td>Dependencies are ready</td><td><code>200 / 503</code></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-tinted" id="getting-started" aria-labelledby="start-title">
+            <div class="shell">
+                <div class="section-heading">
+                    <p class="section-index">04 / QUICK START</p>
+                    <h2 id="start-title">Run the first request.</h2>
+                    <p>Requires Go 1.26+. MySQL is optional; no env file or generator is needed.</p>
+                </div>
+
+                <div class="start-grid">
+                    <article class="start-card start-card-wide">
+                        <div class="card-heading">
+                            <div><span class="step-label">STEP 1</span><h3>Clone and run</h3></div>
+                            <button class="copy-button" type="button" data-copy-target="run-command">Copy</button>
+                        </div>
+                        <pre><code id="run-command">git clone https://github.com/Ikuradachi/skeleton_go.git
+cd skeleton_go
+go run ./cmd/api</code></pre>
+                    </article>
+
+                    <article class="start-card">
+                        <div class="card-heading">
+                            <div><span class="step-label">STEP 2</span><h3>Verify</h3></div>
+                            <button class="copy-button" type="button" data-copy-target="verify-command">Copy</button>
+                        </div>
+                        <pre><code id="verify-command">curl http://localhost:38600/health/ready</code></pre>
+                    </article>
+
+                    <article class="start-card">
+                        <div class="card-heading">
+                            <div><span class="step-label">OPTIONAL</span><h3>Docker</h3></div>
+                            <button class="copy-button" type="button" data-copy-target="docker-command">Copy</button>
+                        </div>
+                        <pre><code id="docker-command">docker compose up --build</code></pre>
+                    </article>
+                </div>
+
+                <aside class="config-note" aria-labelledby="database-title">
+                    <div>
+                        <p class="section-index">DATABASE / OPT-IN</p>
+                        <h3 id="database-title">Enable it when a feature needs it.</h3>
+                        <p>Copy the example config, then set <code>db.driver</code> and <code>db.dsn</code>. The readiness probe will start checking the connection.</p>
+                    </div>
+                    <div class="inline-command">
+                        <code id="config-command">cp pkg/config/config.yaml.example pkg/config/config.yaml</code>
+                        <button class="copy-button" type="button" data-copy-target="config-command">Copy</button>
+                    </div>
+                </aside>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="shell footer-grid">
+            <p><span class="brand-mark" aria-hidden="true">{ }</span> go/skeleton</p>
+            <p>MIT · built for boring, reliable starts.</p>
+            <a href="https://github.com/Ikuradachi/skeleton_go" target="_blank" rel="noreferrer">GitHub ↗</a>
         </div>
     </footer>
 
+    <p class="sr-only" id="copy-status" role="status" aria-live="polite"></p>
     <script src="script.js"></script>
 </body>
 </html>
