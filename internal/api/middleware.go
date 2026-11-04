@@ -20,16 +20,6 @@ func NewMiddleware(e *echo.Echo) {
 			"frame-ancestors 'none'; img-src 'self' data:; object-src 'none'",
 		ReferrerPolicy: "strict-origin-when-cross-origin",
 	}))
-	e.Use(middleware.BodyLimit("2M"))
-	e.Use(middleware.Gzip())
-	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowOrigins:  []string{"*"},
-		AllowMethods:  []string{http.MethodGet, http.MethodHead, http.MethodOptions},
-		AllowHeaders:  []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept, echo.HeaderXRequestID},
-		ExposeHeaders: []string{echo.HeaderXRequestID},
-		MaxAge:        300,
-	}))
-
 	log := logger.Get()
 	e.Use(middleware.RequestLoggerWithConfig(middleware.RequestLoggerConfig{
 		LogMethod:       true,
@@ -66,6 +56,15 @@ func NewMiddleware(e *echo.Echo) {
 			log.LogAttrs(c.Request().Context(), level, message, attrs...)
 			return nil
 		},
+	}))
+	e.Use(middleware.BodyLimit("2M"))
+	e.Use(middleware.Gzip())
+	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins:  []string{"*"},
+		AllowMethods:  []string{http.MethodGet, http.MethodHead, http.MethodOptions},
+		AllowHeaders:  []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept, echo.HeaderXRequestID},
+		ExposeHeaders: []string{echo.HeaderXRequestID},
+		MaxAge:        300,
 	}))
 	e.Use(middleware.Recover())
 }

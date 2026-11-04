@@ -15,7 +15,7 @@ Small REST API base built with Go, Echo, sqlx, and Viper. A fresh clone starts w
 
 ## Requirements
 
-- Go 1.26+
+- Go 1.27+
 - Docker with Compose, only if running the container workflow
 - MySQL, only if database support is enabled
 
@@ -103,6 +103,8 @@ db:
 ```
 
 Startup pings the database with a five-second timeout. `/health/ready` continues checking it after startup and returns `503` when it becomes unavailable.
+
+Each instance opens at most 10 database connections. Requests wait for an available connection when the pool is full, bounded by their context deadline.
 
 ## Project layout
 

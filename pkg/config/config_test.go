@@ -2,10 +2,16 @@ package config
 
 import (
 	"context"
+	"database/sql"
+	"database/sql/driver"
+	"errors"
 	"os"
 	"path/filepath"
+	"strconv"
 	"strings"
+	"sync/atomic"
 	"testing"
+	"time"
 )
 
 func TestLoadUsesRunnableDefaults(t *testing.T) {
@@ -106,6 +112,100 @@ func TestOpenDatabaseRejectsUnknownDriver(t *testing.T) {
 	if db != nil {
 		t.Fatal("OpenDatabase() returned non-nil database")
 	}
+}
+
+func TestOpenDatabaseLimitsConnections(t *testing.T) {
+	driverName := registerTestDriver(&testDriver{ping: func(context.Context) error { return nil }})
+	db, err := OpenDatabase(context.Background(), DB{Driver: driverName, DSN: "test"})
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Cleanup(func() { _ = db.Close() })
+	limit := db.Stats().MaxOpenConnections
+	if limit <= 0 {
+		t.Fatal("database connection pool is unlimited")
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	defer cancel()
+	for range limit {
+		conn, err := db.Conn(ctx)
+		if err != nil {
+			t.Fatal(err)
+		}
+		t.Cleanup(func() { _ = conn.Close() })
+	}
+	waitCtx, cancelWait := context.WithTimeout(ctx, 20*time.Millisecond)
+	defer cancelWait()
+	conn, err := db.Conn(waitCtx)
+	if conn != nil {
+		_ = conn.Close()
+	}
+	if !errors.Is(err, context.DeadlineExceeded) {
+		t.Fatalf("extra connection error = %v, want deadline exceeded", err)
+	}
+}
+
+func TestOpenDatabaseClosesAfterPingFailure(t *testing.T) {
+	for _, cancelPing := range []bool{false, true} {
+		t.Run(strconv.FormatBool(cancelPing), func(t *testing.T) {
+			ctx, cancel := context.WithCancel(context.Background())
+			defer cancel()
+			wantErr := errors.New("database unavailable")
+			var closed atomic.Bool
+			driverName := registerTestDriver(&testDriver{
+				ping: func(ctx context.Context) error {
+					if cancelPing {
+						cancel()
+						return ctx.Err()
+					}
+					return wantErr
+				},
+				close: func() { closed.Store(true) },
+			})
+			if cancelPing {
+				wantErr = context.Canceled
+			}
+			db, err := OpenDatabase(ctx, DB{Driver: driverName, DSN: "test"})
+			if db != nil {
+				_ = db.Close()
+				t.Fatal("failed startup returned a database")
+			}
+			if !errors.Is(err, wantErr) || !closed.Load() {
+				t.Fatalf("error = %v, connection closed = %t", err, closed.Load())
+			}
+		})
+	}
+}
+
+var testDriverID atomic.Uint64
+
+type testDriver struct {
+	ping  func(context.Context) error
+	close func()
+}
+
+func registerTestDriver(d *testDriver) string {
+	name := "config-test-" + strconv.FormatUint(testDriverID.Add(1), 10)
+	sql.Register(name, d)
+	return name
+}
+
+func (d *testDriver) Open(string) (driver.Conn, error) { return testConnection{d}, nil }
+
+type testConnection struct{ driver *testDriver }
+
+func (c testConnection) Ping(ctx context.Context) error { return c.driver.ping(ctx) }
+func (c testConnection) Close() error {
+	if c.driver.close != nil {
+		c.driver.close()
+	}
+	return nil
+}
+func (testConnection) Prepare(string) (driver.Stmt, error) {
+	return nil, errors.New("prepare not supported")
+}
+func (testConnection) Begin() (driver.Tx, error) {
+	return nil, errors.New("transactions not supported")
 }
 
 func writeConfig(t *testing.T, contents string) string {
